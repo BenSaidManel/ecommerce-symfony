@@ -1,0 +1,122 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div id="page-content">
+  
+    	<!--Collection Banner-->
+    	<div class="collection-header">
+			<div class="collection-hero">
+        		<div class="collection-hero__image"><img class="blur-up lazyload" data-src="{{asset('asset/images/cat-women2.jpg')}}" src="{{asset('asset/images/cat-women2.jpg')}}" alt="Women" title="Women" /></div>
+        		<div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width">Shop </h1></div>
+      		</div>
+		</div>
+        <!--End Collection Banner-->
+        <br>
+        <div class="container">
+        	<div class="row">
+            	<!--Sidebar-->
+            	<div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
+                	<div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
+                	<div class="sidebar_tags">
+                    	<!--Categories-->
+                    	<div class="sidebar_widget categories filter-widget">
+                            <div class="widget-title"><h2>Categories Clothing</h2></div>
+                            <div class="widget-content">
+                                <ul class="sidebar_categories">
+                                   
+                                    	<ul >
+                                        	<li class="level2"><a href="#;" class="site-nav">Robe</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Tops</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Chemies et blouses</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Jubes</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Pontalons</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Vestes et manteaux</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Giletes et Pulls</a></li>
+                                            <li class="level2"><a href="#;" class="site-nav">Pontalons</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Categories-->
+                        
+                        <!--Size Swatches-->
+                        <div class="sidebar_widget filterBox filter-widget size-swacthes">
+                            <div class="widget-title"><h2>Size</h2></div>
+                            <div class="filter-color swacth-list">
+                            	<ul>
+                                    <li><span class="swacth-btn checked">X</span></li>
+                                    <li><span class="swacth-btn">XL</span></li>
+                                    <li><span class="swacth-btn">XLL</span></li>
+                                    <li><span class="swacth-btn">M</span></li>
+                                    <li><span class="swacth-btn">L</span></li>
+                                    <li><span class="swacth-btn">S</span></li>
+                                    <li><span class="swacth-btn">XXXL</span></li>
+                                    <li><span class="swacth-btn">XXL</span></li>
+                                    <li><span class="swacth-btn">XS</span></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--End Size Swatches-->
+                        <!--Color Swatches-->
+                        <div class="sidebar_widget filterBox filter-widget">
+                            <div class="widget-title"><h2>Color</h2></div>
+                            <div class="filter-color swacth-list clearfix">
+                                <span class="swacth-btn black"></span>
+                                <span class="swacth-btn white checked"></span>
+                                <span class="swacth-btn red"></span>
+                                <span class="swacth-btn blue"></span>
+                                <span class="swacth-btn pink"></span>
+                                <span class="swacth-btn gray"></span>
+                                <span class="swacth-btn green"></span>
+                                <span class="swacth-btn orange"></span>
+                                <span class="swacth-btn yellow"></span>
+                                <span class="swacth-btn blueviolet"></span>
+                                <span class="swacth-btn brown"></span>
+                                <span class="swacth-btn darkGoldenRod"></span> 
+                                <span class="swacth-btn darkGreen"></span> 
+                                <span class="swacth-btn darkRed"></span> 
+                                <span class="swacth-btn dimGrey"></span>
+                                <span class="swacth-btn khaki"></span> 
+                            </div>
+                        </div>
+                        <!--End Color Swatches-->
+                        <!--Brand-->
+                        <div class="sidebar_widget filterBox filter-widget">
+                            <div class="widget-title"><h2>Brands</h2></div>
+                            <ul>
+                                <li>
+                                  <input type="checkbox" value="allen-vela" id="check1">
+                                  <label for="check1"><span><span></span></span>Allen Vela</label>
+                                </li>
+                                <li>
+                                  <input type="checkbox" value="oxymat" id="check3">
+                                  <label for="check3"><span><span></span></span>Oxymat</label>
+                                </li>
+                                <li>
+                                  <input type="checkbox" value="vanelas" id="check4">
+                                  <label for="check4"><span><span></span></span>Vanelas</label>
+                                </li>
+                                <li>
+                                  <input type="checkbox" value="pagini" id="check5">
+                                  <label for="check5"><span><span></span></span>Pagini</label>
+                                </li>
+                                <li>
+                                  <input type="checkbox" value="monark" id="check6">
+                                  <label for="check6"><span><span></span></span>Monark</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>    
+</div>  
+
+    {% endblock %}
+    
