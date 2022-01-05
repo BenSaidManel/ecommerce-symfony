@@ -3,9 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Catalogue;
+
+use App\Repository\ProduitRepository;
+use App\Repository\CatalogueRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
@@ -18,38 +24,101 @@ class IndexController extends AbstractController
     {
         $produits = $this->getDoctrine()->getRepository(Produit::class)->findAll();
         return $this->render('index/home2.html.twig', ["produits"=>$produits]);
+       
+    }
+
+
+    
+
+    /**
+     * @Route("/catalog/{id}", name="catalog")
+     */
+    public function Catalog($id,CatalogueRepository $catalogueRepository ,ProduitRepository $produitRepository): Response
+
+    {
+
+        $catalogue=$catalogueRepository->find($id);
+        // return $this->json($catalogue->getProduit());
+        
+            $prod= $catalogue->getProduit();
+
+        $produitsList = $this->getDoctrine()->getRepository(Produit::class)->findAll();
+        $categ= $this->getDoctrine()->getRepository(Catalogue::class)->findAll();
+        
+        
+        
+        return $this->render('index/women/CatalogSort.html.twig', ["produits"=>$produitsList ,"catalogues"=>$categ,"catalogu" => $prod]);
+     
+        
+    }
+
+    
+
+    /**
+     * @Route("/Catalog/{id}", name="catalog_id")
+     */
+    public function show(ManagerRegistry $doctrine, int $id): Response
+    {
+        $product = $doctrine->getRepository(Produit::class)->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for catg '.$id
+            );
+        }
+        elseif($product->getCatalogue() == "Robe"){
+            //return new Response('Check out this great product: '.$product->getnom());
+
+        // or render a template
+        // in the template, print things with {{ product.name }}
+         //return $this->render('produit/show.html.twig', ['produit' => $product]);
+         return $this->render('index/women/CatalogSort.html.twig', ['produits' => $product]);
+
+        }
+        
+        
+        //return $this->render('index/CatalogSort.html.twig', []);
+        
     }
     
-    /**
-     * @Route("/list", name="produit_list")
+     /**
+     * @Route("/testC", name="testC")
      */
-    public function list(): Response
-    {
-        
-        $produits = $this->getDoctrine()->getRepository(Produit::class)->findAll();
+    public function testC(CatalogueRepository $catalogueRepository , ProduitRepository $rep): Response
 
+    {
+        $catalogue=$catalogueRepository->find(4);
+        // return $this->json($catalogue->getProduit());
         
+            $prod= $catalogue->getProduit();
+          /*  return $this->json(
+                $catalogue->getProduit(),
+                 Response::HTTP_OK,
+                 [],
+                 [
+                     // ObjectNormalizer::IGNORED_ATTRIBUTES => ['user'],
+                     ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+                         return $object->getId();
+                     }
+                 ]
+             );*/
+
+        //$produitsList = $this->getDoctrine()->getRepository(Produit::class)->findAll();
+        //$categ= $this->getDoctrine()->getRepository(Catalogue::class)->findAll();
+    
+       return $this->render('index/women/testC.html.twig', [ "catalogues" => $prod]);
+     
         
-        return $this->render('index/home2.html.twig', ["produits"=>$produits
-           
-        ]);
     }
 
-
     /**
-     * @Route("/login", name="login")
+     * @Route("/payement", name="payement")
      */
     public function login(): Response
     {
-        return $this->render('index/Login.html.twig', []);
+        return $this->render('index/payement.html.twig', []);
     }
-    /**
-     * @Route("/sign_up", name="sign_up")
-     */
-    public function sign_up(): Response
-    {
-        return $this->render('index/sign_up.html.twig', []);
-    }
+   
 
     /**
      * @Route("/contact", name="contact")
@@ -60,27 +129,30 @@ class IndexController extends AbstractController
     }
 
 
-    /**
-     * @Route("/WomenProduit", name="WomenProduit")
-     */
-    public function WomenProduit(): Response
-    {
-        return $this->render('index/WomenProduit.html.twig', []);
-    }
+    
+
+    
 
     /**
-     * @Route("/cart", name="cart")
+     * @Route("/ListProd", name="ListProd")
      */
-    public function cart(): Response
-    {
-        return $this->render('index/cart.html.twig', []);
+    public function ListProd(): Response
+    {    
+         $produitsList = $this->getDoctrine()->getRepository(Produit::class)->findAll();
+        return $this->render('index/women/ListProd.html.twig', ["produits"=>$produitsList]);
+    
+     
     }
-
+    
     /**
-     * @Route("/Men", name="men")
+     * @Route("/GridProduit", name="GridProduit")
      */
-    public function Men(): Response
+    public function GridProduit(): Response
     {
-        return $this->render('index/Men.html.twig', []);
+        $produitsList = $this->getDoctrine()->getRepository(Produit::class)->findAll();
+        $categ= $this->getDoctrine()->getRepository(Catalogue::class)->findAll();
+        return $this->render('index/women/GridProduit.html.twig', ["produits"=>$produitsList ,"catalogues"=>$categ]);
+     
+       
     }
 }

@@ -15,11 +15,16 @@
                    <th>Size</th>
                 <th>Prix</th>
                  <th>Image</th>
-                <th>actions</th>
+                 <th>catalogue</th>
+               
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
+     
+         {% if produit.catalogue == "Robe" %}
+
+       
             <tr>
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.Ref }}</td>
@@ -28,16 +33,27 @@
                 <td>{{ produit.Size}}</td>
                 <td>{{ produit.Prix }}</td>
                  <td>{{ produit.image }}</td>
-                <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
+                  <td>{{ produit.catalogue }}</td>
+              
             </tr>
-        {% else %}
+             {% elseif (produit.catalogue == "pull"  and  produit.catalogue != "Robe" )%}
+      
+             
             <tr>
-                <td colspan="4">no records found</td>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.Ref }}</td>
+                <td>{{ produit.Nom }}</td>
+                <td>{{ produit.Description }}</td>
+                <td>{{ produit.Size}}</td>
+                <td>{{ produit.Prix }}</td>
+                 <td>{{ produit.image }}</td>
+                  <td>{{ produit.catalogue }}</td>
+              
             </tr>
-        {% endfor %}
+         
+             {% endif %}
+        
+         {% endfor %}
         </tbody>
     </table>
 

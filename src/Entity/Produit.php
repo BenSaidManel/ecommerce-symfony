@@ -147,7 +147,8 @@ class Produit
 
     public function __toString()
     {
-        return $this->Ref;
+  
+    return $this->Nom;
     }
     /**
      * Undocumented function

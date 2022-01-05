@@ -1,22 +1,10 @@
 
 
-{% extends 'base.html.twig' %}
+
 
 {% block body %}
 
-    <div id="page-content">
-  
-    	<!--Collection Banner-->
-    	<div class="collection-header">
-			<div class="collection-hero">
-        		<div class="collection-hero__image"><img class="blur-up lazyload" data-src="{{asset('asset/images/cat-women2.jpg')}}" src="{{asset('asset/images/cat-women2.jpg')}}" alt="Women" title="Women" /></div>
-        		<div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width">Shop </h1></div>
-      		</div>
-		</div>
-        <!--End Collection Banner-->
-        <br>
-        <div class="container">
-        	<div class="row">
+ 
             	<!--Sidebar-->
             	<div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
                 	<div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
@@ -28,14 +16,13 @@
                                 <ul class="sidebar_categories">
                                    
                                     	<ul >
-                                        	<li class="level2"><a href="#;" class="site-nav">Robe</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Tops</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Chemies et blouses</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Jubes</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Pontalons</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Vestes et manteaux</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Giletes et Pulls</a></li>
-                                            <li class="level2"><a href="#;" class="site-nav">Pontalons</a></li>
+                                      
+                                        	{% for catalog in catalogues %}
+           
+           
+                                                       
+                                        	<li class="level2">   <a href="{{ path('catalog',{'id': catalog.id}) }}">{{catalog.nom}}</a></li>
+                                             {% endfor %}
                                         </ul>
                                     </li>
                                     
@@ -55,10 +42,7 @@
                                     <li><span class="swacth-btn">XLL</span></li>
                                     <li><span class="swacth-btn">M</span></li>
                                     <li><span class="swacth-btn">L</span></li>
-                                    <li><span class="swacth-btn">S</span></li>
-                                    <li><span class="swacth-btn">XXXL</span></li>
-                                    <li><span class="swacth-btn">XXL</span></li>
-                                    <li><span class="swacth-btn">XS</span></span></li>
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -77,12 +61,7 @@
                                 <span class="swacth-btn orange"></span>
                                 <span class="swacth-btn yellow"></span>
                                 <span class="swacth-btn blueviolet"></span>
-                                <span class="swacth-btn brown"></span>
-                                <span class="swacth-btn darkGoldenRod"></span> 
-                                <span class="swacth-btn darkGreen"></span> 
-                                <span class="swacth-btn darkRed"></span> 
-                                <span class="swacth-btn dimGrey"></span>
-                                <span class="swacth-btn khaki"></span> 
+                               
                             </div>
                         </div>
                         <!--End Color Swatches-->
@@ -114,9 +93,9 @@
                         </div>
                     </div>    
                 </div>
-            </div>
-        </div>    
-</div>  
+                
+                   
+                
 
     {% endblock %}
     

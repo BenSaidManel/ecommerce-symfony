@@ -19,12 +19,14 @@ class ProduitType extends AbstractType
             ->add('Description',TextareaType::class)
             ->add('Size',TextType::class)
             ->add('Prix',IntegerType::class)
-            /*->add('imageFile',FileType::class,[
+            ->add('imageFile',FileType::class,[
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
-            ])*/
+                'required' => false,
+                'data_class' => false,
+                'empty_data' =>''
+            ])
            ->add('new', CheckboxType::class, [
                 'required' => false,
             ])

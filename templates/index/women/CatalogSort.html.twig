@@ -1,0 +1,53 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div id="page-content">
+  
+    	<!--Collection Banner-->
+    	<div class="collection-header">
+			<div class="collection-hero">
+        		<div class="collection-hero__image"><img class="blur-up lazyload" data-src="{{asset('asset/images/cat-women2.jpg')}}" src="{{asset('asset/images/cat-women2.jpg')}}" alt="Women" title="Women" /></div>
+        		<div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width">Shop </h1></div>
+      		</div>
+		</div>
+        <!--End Collection Banner-->
+        <br>
+        <div class="container">
+        	<div class="row">
+            	<!--Sidebar-->
+            	   {{ include('index/women/GridProduit.html.twig') }}
+
+            	
+
+
+
+
+
+
+
+
+
+
+
+                <!-- partie list prod -->
+                {{ include('index/women/testC.html.twig') }}
+                
+                           
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>    
+    </div>  
+
+{% endblock %}
+    

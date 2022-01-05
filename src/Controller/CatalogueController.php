@@ -4,26 +4,47 @@ namespace App\Controller;
 
 use App\Entity\Catalogue;
 use App\Form\CatalogueType;
+use App\Repository\ProduitRepository;
 use App\Repository\CatalogueRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/catalogue")
+ * 
  */
 class CatalogueController extends AbstractController
 {
     /**
      * @Route("/", name="catalogue_index", methods={"GET"})
      */
-    public function index(CatalogueRepository $catalogueRepository): Response
+    public function index(CatalogueRepository $catalogueRepository , ProduitRepository $rep): Response
     {
+        /*$catalogue=$catalogueRepository->find(1);
+       // return $this->json($catalogue->getProduit());
+        return $this->json(
+           $catalogue->getProduit(),
+            Response::HTTP_OK,
+            [],
+            [
+                // ObjectNormalizer::IGNORED_ATTRIBUTES => ['user'],
+                ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+                    return $object->getId();
+                }
+            ]
+        );*/
+
         return $this->render('catalogue/index.html.twig', [
-            'catalogues' => $catalogueRepository->findAll(),
+            'catalogues' => $catalogueRepository->findAll(),"produits"=>$rep->findAll()
         ]);
+       
     }
+
+   
 
     /**
      * @Route("/new", name="catalogue_new", methods={"GET","POST"})
@@ -49,10 +70,11 @@ class CatalogueController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="catalogue_show", methods={"GET"})
+     * @Route("/{nom}", name="catalogue_show", methods={"GET"})
      */
-    public function show(Catalogue $catalogue): Response
+    public function show(Catalogue $catalogue ,ProduitRepository $rep): Response
     {
+       
         return $this->render('catalogue/show.html.twig', [
             'catalogue' => $catalogue,
         ]);

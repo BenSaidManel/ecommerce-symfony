@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Panier;
+use App\Entity\Produit;
 use App\Form\PanierType;
 use App\Repository\PanierRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,12 +21,100 @@ class PanierController extends AbstractController
     /**
      * @Route("/", name="panier_index", methods={"GET"})
      */
-    public function index(PanierRepository $panierRepository): Response
+    public function index(ProduitRepository $productsRepository,SessionInterface $session,PanierRepository $panierRepository): Response
     {
+
+        $panier = $session->get("panier", []);
+
+        // On "fabrique" les données
+        $panierwithData = [];
+        $total =0 ;
+
+        foreach($panier as $id => $quantite){
+            $product = $productsRepository->find($id);
+            $panierwithData[] = [
+                "product" => $product,
+                "quantite" => $quantite
+            ];
+            $total +=$product->getPrix() * $quantite;
+
+            /*foreach($panierwithData as $item){
+                $totalItem = $item['product']->getPrix() * $item['quantite'];
+                $total += $totalItem;
+
+            }
+            else{
+                $total =0 ;
+            }*/
+        }
         return $this->render('panier/index.html.twig', [
-            'paniers' => $panierRepository->findAll(),
+            'items'=>$panierwithData,
+            'total' => $total
         ]);
+      
+        
     }
+
+
+    /**
+     * @Route("/add/{id}", name="panier_add")
+     */
+    public function add($id,Request $request,Produit $product, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        //$session=$request->getSession();
+
+        $panier = $session->get("panier", []);
+        
+        $id = $product->getId();
+
+        if(!empty($panier[$id])){
+            $panier[$id]++;
+        }else{
+            $panier[$id] = 1;
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
+       // dd($session->get('panier'));
+
+        return $this->redirectToRoute("panier_index");
+    }
+
+    /**
+     * @Route("/remove/{id}", name="panier_remove")
+     */
+    public function remove($id,Produit $product, SessionInterface $session)
+    {
+        // On récupère le panier actuel
+        $panier = $session->get("panier", []);
+        $id = $product->getId();
+
+        if(!empty($panier[$id])){
+            
+                unset($panier[$id]);
+            
+        }
+
+        // On sauvegarde dans la session
+        $session->set("panier", $panier);
+
+        return $this->redirectToRoute("panier_index");
+    }
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/new", name="panier_new", methods={"GET","POST"})
@@ -91,4 +182,6 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute('panier_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

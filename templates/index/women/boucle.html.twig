@@ -1,0 +1,89 @@
+                    
+{% block body %}
+
+<!-- sno utlise -->
+                
+                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                        <!-- start product image -->
+                            
+                    
+                        <div class="product-image" >
+                            <!-- start product image -->
+                            <a href="product-layout-1.html" class="grid-view-item__link">
+                                <!-- image -->
+                                <img class="primary blur-up lazyload" src=/uploads/images/{{ p.Produit.image}} style="height : 300px;" alt="image" title="product">
+                                <!-- End image -->
+                                <!-- Hover image -->
+                                <img class="hover blur-up lazyload" src=/uploads/images/{{ p.Image}} style="height : 300px;"  alt="image" title="product">
+                                <!-- End hover image -->
+                                <!-- Variant Image-->
+                                
+                                <!-- Variant Image-->
+                                <!-- product label -->
+                                 {% if p.new == true %}
+                                <div class="product-labels rectangular">
+                                <span class="lbl on-sale">-16%</span> 
+                                  <span class="lbl pr-label1"> new </span></div>{% endif %}
+                                   
+                                        <!-- End product label -->
+                            </a>
+                            <!-- end product image -->
+                            
+                            <!-- countdown start -->
+                            <div class="saleTime desktop" data-countdown="2022/03/01"></div>
+                            <!-- countdown end -->
+
+                            <!-- Start product button -->
+                            <form class="variants add" action="#" onclick="window.location.href='{{path("panier_add",{id: p.id})}}'"method="post">
+                                <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
+                            </form>
+                            <div class="button-set">
+                                <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
+                                    <i class="icon anm anm-search-plus-r"></i>
+                                </a>
+                                <div class="wishlist-btn">
+                                    <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                        <i class="icon anm anm-heart-l"></i>
+                                    </a>
+                                </div>
+                                <div class="compare-btn">
+                                    <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
+                                        <i class="icon anm anm-random-r"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- end product button -->
+                        </div>
+                        <!-- end product image -->
+                        <!--start product details -->
+                        <div class="product-details text-center">
+                            <!-- product name -->
+                            <div class="product-name">
+                                <a href="product-layout-1.html">{{ p.NOM }}</a>
+                            </div>
+                            <!-- End product name -->
+                            <!-- product price -->
+                            <div class="product-price">
+                                <span class="old-price">$500.00</span>
+                                <span class="price">${{ p.Prix}}</span>
+                            </div>
+                            <!-- End product price -->
+                            <!-- Color Variant -->
+                             <div class="product-review">
+                                        <i class="font-13 fa fa-star"></i>
+                                        <i class="font-13 fa fa-star"></i>
+                                        <i class="font-13 fa fa-star"></i>
+                                        <i class="font-13 fa fa-star-o"></i>
+                                        <i class="font-13 fa fa-star-o"></i>
+                            </div>
+                                   
+                            <!-- End Variant -->
+                        </div>
+                        <!-- End product details -->
+                          
+                    </div>
+                    
+ 
+
+
+    {% endblock %}

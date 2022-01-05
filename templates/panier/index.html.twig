@@ -1,35 +1,115 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Panier index{% endblock %}
+ 
+  {% extends 'base.html.twig' %}     
 
-{% block body %}
-    <h1>Panier index</h1>
+{% block body %}      
+<div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Shopping Cart<h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+        
+        <div class="container">
+        	<div class="row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                	<form action="#" method="post" class="cart style2">
+                    {% if items | length > 0 %}
+                		<table>
+                            <thead class="cart__row cart__header">
+                                <tr>
+                                    <th colspan="2" class="text-center">Product</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Quantite</th>
+                                    <th class="text-right">Total</th>
+                                    <th class="action">&nbsp;</th>
+                                </tr>
+                            </thead>
+                    		<tbody>
+                             {% for item in items %}
+                                <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                    <td class="cart__image-wrapper cart-flex-item">
+                                        <a href="#"><img class="cart__image" src=/uploads/images/{{ item.product.Image}}  alt="Elastic Waist Dress - Navy / Small"></a>
+                                    </td>
+                                    <td class="cart__meta small--text-left cart-flex-item">
+                                        <div class="list-view-item__title">
+                                            <a href="#">{{ item.product.nom }}</a>
+                                        </div>
+                                        
+                                        <div class="cart__meta-text">
+                                            Color: Navy<br>Size: Small<br>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price-wrapper cart-flex-item">
+                                        <span class="money">{{ item.product.prix }}</span>
+                                    </td>
+                                    <td class="cart__update-wrapper cart-flex-item text-right">
+                                        <div class="cart__qty text-center">
+                                            <div class="qtyField">
+                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
+                                                <input class="cart__qty-input qty"  name="updates[]" id="qty" value={{ item.quantite }} >
+                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
+                                            
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right small--hide cart-price">
+                                        <div><span class="money">{{ item.product.prix * item.quantite}}</span></div>
+                                    </td>
+                                    <td class="text-center small--hide"><a href="{{path('panier_remove',{'id':item.product.id}) }}" class="btn btn--secondary cart__remove" title="Remove tem"><i class="icon icon anm anm-times-l"></i></a></td>
+                                </tr>
+                              
+                                  {% endfor %}
+                            </tbody>
+                    		<tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-left"><a href="{{path('catalogue_index')}}" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> Continue shopping</a></td>
+                                    <td colspan="3" class="text-right"><button type="submit" name="update" class="btn--link cart-update"><a href="{{path('panier_index')}}" class="btn--link cart-update"><i class="fa fa-refresh"></i> Update</a></button></td>
+                                </tr>
+                            </tfoot>
+                    </table>
+                    {% else %}
+                         <p>Votre panier est vide ! </p>
+                    {% endif %}
+                    <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div>
+                    <hr>
+				
+                    
+                    </form>                   
+               	</div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                	<div class="solid-border">	
+                              
+                              
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
+                                <span class="col-12 col-sm-6 text-right">Free shipping</span>
+                              </div>
+                                 
+                              <div class="row border-bottom pb-2 pt-2">
+                          
+                                <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
+                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">{{total }}</span></span>
+                              
+                              </div>
+                              <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                              <p class="cart_tearm">
+                                <label>
+                                  <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                                  I agree with the terms and conditions
+								</label>
+                              </p>
+                              <button type="submit"   name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout"><a href="{{path('payment')}}" >Proceed To Checkout</a></button>
+                              <div class="paymnet-img"><img src="{{asset('asset/images/payment-img.jpg')}}" alt="Payment"></div>
+                              <p><a href="#;">Checkout with Multiple Addresses</a></p>
+                            </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for panier in paniers %}
-            <tr>
-                <td>{{ panier.id }}</td>
-                <td>{{ panier.date }}</td>
-                <td>
-                    <a href="{{ path('panier_show', {'id': panier.id}) }}">show</a>
-                    <a href="{{ path('panier_edit', {'id': panier.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('panier_new') }}">Create new</a>
-{% endblock %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->  
+    {% endblock %}

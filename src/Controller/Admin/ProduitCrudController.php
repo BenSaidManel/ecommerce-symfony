@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Produit;
 use PhpParser\Node\Expr\BooleanNot;
 use Doctrine\DBAL\Types\BooleanType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -33,7 +36,7 @@ class ProduitCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('Ref'),
             TextField::new('Nom'),
-            TextareaField::new('Description'),
+            TextEditorField::new('Description'),
             TextField::new('Size'),
             BooleanField::new('new')->setTextAlign('center'),
             MoneyField::new('Prix')->setCurrency('EUR'),
